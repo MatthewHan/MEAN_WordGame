@@ -1,0 +1,10 @@
+{
+  "name": "mean_customers_orders",
+  "dependencies": {
+    "body-parser": "latest",
+    "express": "latest",
+    "express-jwt": "^3.0.1",
+    "express-session": "^1.11.3",
+    "mongoose": "latest"
+  }
+}

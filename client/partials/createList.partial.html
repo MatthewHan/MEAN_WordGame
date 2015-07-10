@@ -1,0 +1,63 @@
+<h3>Create A New Study List</h3>
+<div class="row">
+	<div ng-repeat="error in listsCtrl.errors">
+        <p ng-bind="error" class = 'red-text'></p>
+    </div>
+    {{loginCtrl.auth.profile.nickname}}
+    {{loginCtrl.auth.profile.user_id}}
+	<div class = 'card hoverable'>
+		<form class="col s12">
+			<div class = 'card-title'>
+				<input type="hidden" ng-model = 'listsCtrl.newList.creator' ng-init = 'listsCtrl.newList.creator = loginCtrl.auth.profile.nickname'>
+				<input type="hidden" ng-model = 'listsCtrl.newList.creatorId' ng-init = 'listsCtrl.newList.creatorId = loginCtrl.auth.profile.user_id'>
+				<div class="row">
+			        <div class="input-field col s12">
+			          	<input name = 'title' id="title" type="text" class="validate black-text" ng-model = 'listsCtrl.newList.title'>
+			          	<label for="title">Title (required)</label>
+			        </div>
+		       	</div>
+		       	<div class="row">
+		       		<div class="input-field col s12">
+			          	<input name = 'description' id="description" type="text" class="validate black-text" ng-model = 'listsCtrl.newList.description'>
+			          	<label for="description">Description (optional)</label>
+			        </div>
+		       	</div>
+			    <div class="row">
+		       		<div class="input-field col s12">
+			          	<input name = 'tags' id="tags" type="text" class="validate black-text" ng-model = 'listsCtrl.newList.tags'>
+			          	<label for="tags">Tags (at least 1 separate by comma)</label>
+			        </div>
+		       	</div>
+		       	<div class="row" ng-if="loginCtrl.auth.profile.user_metadata.role[0] == 'admin'">
+		       		<div class="input-field col s12">
+		       			<input id = 'isDefault' name = 'isDefault' type="checkbox" ng-model ='listsCtrl.newList.isDefault'>
+		       			<label for="isDefault">Make List a default list</label>
+		       		</div>
+		       	</div>
+			</div>
+	      	<div class = 'card-content'>
+	      		<div class="row" data-ng-repeat = 'item in listsCtrl.newList.items'>
+			        <div class="input-field col s6">
+			          	<input name='question' type="text" class="validate" ng-model = 'item.question'>
+			          	<label for="question">Question</label>
+			        </div>
+			        <div class="input-field col s6">
+			          	<input name = 'answer' type="text" class="validate" ng-model = 'item.answer'>
+			          	<label for="answer">Answer(separate multiple answers by comma)</label>
+			        </div>
+			    </div>
+			    <div class="left-align">
+			    	<a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons" ng-click = 'listsCtrl.addNewItem()'>add</i></a>
+			    </div>
+	      	</div>
+		    <div class = 'card-action'>
+		    	<div class="center-align">
+			    	<a class = 'waves-effect waves-light btn-large light-blue white-text' ng-click = 'listsCtrl.addList(listsCtrl.newList)'>Create</a>
+			    </div>
+		    </div>
+	    </form>
+	</div> 
+</div>
+        
+
+
