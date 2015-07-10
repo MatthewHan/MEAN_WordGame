@@ -10,6 +10,16 @@ module.exports = (function(){
 				}
 			})
 		},
+		getOne: function(req, res){
+			console.log('Server/Ctrl/List/GetOne');
+			console.log(req.params);
+			List.findOne({_id:req.params.id}, function(err, list){
+				if(err)
+					res.json({status:false});
+				else
+					res.json(list);
+			})
+		},
 		create: function(req, res){
 			var list = new List;
 			list.list = req.body.items;
@@ -43,7 +53,7 @@ module.exports = (function(){
 			// })
 		},
 		destroy: function(req, res){
-			Customer.remove({_id:req.params.id}, function(err){
+			List.remove({_id:req.params.id}, function(err){
 				if(err){
 					res.json({status:false});
 				} else {

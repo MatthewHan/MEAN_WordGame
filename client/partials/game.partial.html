@@ -3,12 +3,12 @@ Set Timer: <input type="number" ng-model = 'gamesCtrl.timer' ng-enter = 'gamesCt
 Time Left: <div ng-if='gamesCtrl.timer != null' ng-bind = 'gamesCtrl.timer'></div>
 <div class="card hoverable col s6 offset-s4">
 	<div class="card-content">
-		<h1 ng-bind = 'gamesCtrl.word'></h1>
+		<h1 ng-bind = 'gamesCtrl.question'></h1>
 	</div>
 	<div class = 'card-action'>
 		<form>
 			<div class="input-field">
-	          	<input type="text" name = 'userAnswer' placeholder = 'Your Answer' ng-if= "gamesCtrl.word != 'Game Completed!'" ng-model = 'gamesCtrl.answer' ng-blur = 'gamesCtrl.checkAnswer(gamesCtrl.answer)' ng-enter = 'gamesCtrl.checkAnswer(gamesCtrl.answer)'>
+	          	<input type="text" name = 'userAnswer' placeholder = 'Your Answer' ng-if= "gamesCtrl.question != 'Game Completed!'" ng-model = 'gamesCtrl.answer' ng-blur = 'gamesCtrl.checkAnswer(gamesCtrl.answer)' ng-enter = 'gamesCtrl.checkAnswer(gamesCtrl.answer)'>
 	        </div>
 	        <a class = 'waves-effect waves-light btn light-blue white-text' ng-click = 'gamesCtrl.skip()'>Skip</a>
 		</form>

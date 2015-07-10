@@ -1,12 +1,16 @@
 app.factory('GamesFactory', function($http){
 	return {
-		getList: function(callback){
-			console.log('GamesFactory GetList')
-		}
+		
 	}
 });
 app.factory('ListsFactory', function($http){
 	return {
+		getList: function(listId, callback){
+			console.log('ListsFactory getList');
+			$http.get('/lists/'+listId).success(function(res){
+				callback(res);
+			})
+		},
 		addList: function(newList, callback){
 			$http.post('/lists', newList).success(function(res){
 				callback(res);

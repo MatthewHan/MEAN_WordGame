@@ -4,80 +4,85 @@ app.controller('GamesController', [ 'GamesFactory', 'ListsFactory', '$timeout', 
 	this.listId = $routeParams.gameId;
 	console.log(this.listId);
 	this.list = [];
-	this.word = '';
+	this.set = [];
+	this.question = '';
 	this.timer;
 	this.resetTimer;
 	var getList = function(listId){
-		ListsFactory.getList(function(list){
-
+		console.log('GamesController getList');
+		console.log('listId', listId);
+		ListsFactory.getList(listId, function(list){
+			that.list = list;
+			that.set = that.list.list;
+			console.log(that.list);
 		})
 	}
-	// var getWord = function(){
-	// 	//console.log(that.list);
-	// 	if(that.list.length>0){
-	// 		that.word = that.list[Math.floor(Math.random()*that.list.length)].word;
-	// 		that.timer = that.resetTimer;
-	// 		that.lowerTimer();
-	// 	} else {
-	// 		that.word = 'Game Completed!';
-	// 		$timeout.cancel(myTimer);
-	// 	}
+	getList(this.listId);
+	var getWord = function(){
+		//console.log(that.list);
+		if(that.set.length>0){
+			that.question = that.set[Math.floor(Math.random()*that.set.length)].question;
+			that.timer = that.resetTimer;
+			that.lowerTimer();
+		} else {
+			that.question = 'Game Completed!';
+			$timeout.cancel(myTimer);
+		}
 		
-	// 	console.log(that.word);
-	// }
-	// this.removeWord = function(index){
-	// 	this.list.list.splice(index, 1);
-	// 	console.log(this.list);
-	// }
-	// this.checkAnswer = function(answer){
-	// 	console.log(answer);
-	// 	for(i=0;i<this.list.length;i++){
-	// 		if(this.list[i].word == this.word){
-	// 			if(isInArray(answer, this.list[i].answer)){
-	// 				console.log('answer correct');
-	// 				this.removeWord(i);
-	// 				this.answer = '';
-	// 				$timeout.cancel(myTimer);
-	// 				that.timer = this.resetTimer;
-	// 				getWord();
-	// 			}
-	// 		}
-	// 	}
-	// }
-	// this.setTimer = function(timer){
-	// 	console.log('time set');
-	// 	that.timer = timer;
-	// 	that.resetTimer = timer;
-	// 	getWord();
-	// }
-	// this.lowerTimer = function(){
-	// 	myTimer = $timeout(function(){
-	// 		that.timer--;
-	// 		if(that.timer <= 0) that.word = 'You Have Lost Please Try Again';
-	// 		else that.lowerTimer();
-	// 	},1000)
-	// }
-	// this.skip = function(){
-	// 	if(that.list.length >= 2){
-	// 		var tempList = angular.copy(this.list);
-	// 		$timeout.cancel(myTimer);
-	// 		for(i=0;i<tempList.length;i++){
-	// 			if(tempList[i].word == this.word){
-	// 				tempList.splice(i, 1);
-	// 				console.log('check real list', that.list);
-	// 				that.word = tempList[Math.floor(Math.random()*tempList.length)].word;
-	// 				that.timer = that.resetTimer;
-	// 				that.lowerTimer();
-	// 			}
-	// 		}
-	// 	} else {
-	// 		console.log('Cannot Skip');
-	// 	}
-	// }
-	// function isInArray(value, array){
-	// 	return array.indexOf(value)> -1;
-	// }
-	// getList();
+		console.log(that.question);
+	}
+	this.removeWord = function(index){
+		this.set.splice(index, 1);
+		console.log(this.set);
+	}
+	this.checkAnswer = function(answer){
+		console.log(answer);
+		for(i=0;i<this.set.length;i++){
+			if(this.set[i].question == this.question){
+				if(isInArray(answer, this.set[i].answer)){
+					console.log('answer correct');
+					this.removeWord(i);
+					this.answer = '';
+					$timeout.cancel(myTimer);
+					that.timer = this.resetTimer;
+					getWord();
+				}
+			}
+		}
+	}
+	this.setTimer = function(timer){
+		console.log('time set');
+		that.timer = timer;
+		that.resetTimer = timer;
+		getWord();
+	}
+	this.lowerTimer = function(){
+		myTimer = $timeout(function(){
+			that.timer--;
+			if(that.timer <= 0) that.question = 'You Have Lost Please Try Again';
+			else that.lowerTimer();
+		},1000)
+	}
+	this.skip = function(){
+		if(that.set.length >= 2){
+			var tempList = angular.copy(this.set);
+			$timeout.cancel(myTimer);
+			for(i=0;i<tempList.length;i++){
+				if(tempList[i].question == this.question){
+					tempList.splice(i, 1);
+					console.log('check real set', that.set);
+					that.question = tempList[Math.floor(Math.random()*tempList.length)].question;
+					that.timer = that.resetTimer;
+					that.lowerTimer();
+				}
+			}
+		} else {
+			console.log('Cannot Skip');
+		}
+	}
+	function isInArray(value, array){
+		return array.indexOf(value)> -1;
+	}
 }]);
 
 app.controller('ListsController', [ 'ListsFactory','$rootScope', function (ListsFactory, $rootScope){
