@@ -12,6 +12,11 @@ app.config(function(authProvider, $routeProvider, $httpProvider, jwtInterceptorP
 		controllerAs: 'gamesCtrl',
 		templateUrl: '/partials/game.partial.html'
 	})
+	.when('/flash/:setId', {
+		controller: 'FlashcardsController',
+		controllerAs: 'cardsCtrl',
+		templateUrl: '/partials/flashcards.partial.html'
+	})
 	.when('/create', {
 		controller: 'ListsController',
 		controllerAs: 'listsCtrl',
@@ -42,6 +47,13 @@ app.config(function (authProvider) {
     	domain: 'matthewhan.auth0.com',
     	clientID: 'U7NNhPBwTTg7oe4nvYkqcMhHQ2ryGzsS'
   	});
+});
+
+app.config(function(flipConfigProvider){
+  flipConfigProvider.setClassName("flipperCosmic");
+  flipConfigProvider.setTempo("3s");
+  flipConfigProvider.setDim({width:"300px", height:"300px"});
+  flipConfigProvider.flipsOnClick(false);
 });
 
 app.run(function($rootScope, auth, store, jwtHelper, $location) {

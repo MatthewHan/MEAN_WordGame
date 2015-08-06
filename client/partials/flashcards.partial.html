@@ -1,0 +1,19 @@
+<!-- <div class="card hoverable" ng-repeat = 'item in cardsCtrl.set'>
+	<div class="card-content">
+		<span class="card-title activator">
+			<h1 class = 'black-text' ng-bind = 'item.question'></h1>
+		</span>
+	</div>
+	<div class="card-reveal">
+		<p class = 'card-title'>Potato</p>
+	</div>
+</div> -->
+
+<div class="card" ng-repeat = 'item in cardsCtrl.set'>
+    <div class="card-content">
+      <h1><span class="card-title activator grey-text text-darken-4" ng-bind = 'item.question'></span></h1>
+    </div>
+    <div class="card-reveal">
+      <h1 ng-repeat = 'answers in item.answer'><span class="card-title grey-text text-darken-4" ng-bind = 'answers'></span></h1>
+    </div>
+ </div>

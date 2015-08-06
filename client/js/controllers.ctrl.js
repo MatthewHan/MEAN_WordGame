@@ -1,8 +1,6 @@
 app.controller('GamesController', [ 'GamesFactory', 'ListsFactory', '$timeout', '$routeParams',function(GamesFactory, ListsFactory, $timeout, $routeParams){
 	that = this;
-	console.log('in game ctrller');
 	this.listId = $routeParams.gameId;
-	console.log(this.listId);
 	this.list = [];
 	this.set = [];
 	this.question = '';
@@ -18,6 +16,7 @@ app.controller('GamesController', [ 'GamesFactory', 'ListsFactory', '$timeout', 
 		})
 	}
 	getList(this.listId);
+	//Sets random word for both starting the game and skipping words 
 	var getWord = function(){
 		//console.log(that.list);
 		if(that.set.length>0){
@@ -82,6 +81,39 @@ app.controller('GamesController', [ 'GamesFactory', 'ListsFactory', '$timeout', 
 	}
 	function isInArray(value, array){
 		return array.indexOf(value)> -1;
+	}
+}]);
+
+app.controller('FlashcardsController', [ 'GamesFactory', 'ListsFactory', '$timeout', '$routeParams',function(GamesFactory, ListsFactory, $timeout, $routeParams){
+	that = this;
+	this.listId = $routeParams.setId;
+	this.list = [];
+	this.set = [];
+	this.question = '';
+	var getList = function(listId){
+		console.log('FlashController getList');
+		console.log('listId', listId);
+		ListsFactory.getList(listId, function(list){
+			that.list = list;
+			that.set = that.list.list;
+			that.set = shuffle(that.set);
+			console.log(that.set);
+		})
+	}
+	getList(this.listId);
+	
+	//Randomize flashcard order 
+	function shuffle(set){
+		var idx = set.length;
+		var temp, randomIdx;
+		while(idx > 0){
+			randomIdx = Math.floor(Math.random()*idx);
+			idx-=1;
+			temp = set[idx];
+			set[idx] = set[randomIdx];
+			set[randomIdx] = temp;
+		}
+		return set;
 	}
 }]);
 
