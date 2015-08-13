@@ -6,4 +6,6 @@ module.exports = function(app) {
 	.get('/lists/:id', function (req, res) { lists.getOne(req,res) })
 	// Create
 	.post('/lists', function (req, res) { lists.create(req, res) })	
+	// Delete
+	.delete('/lists/:id', function (req, res) { lists.destroy(req,res) })
 }

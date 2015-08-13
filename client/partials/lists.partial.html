@@ -3,10 +3,9 @@
     <div class="col s4 m4" ng-repeat = 'list in listsCtrl.lists'>
       	<div class="card hoverable">
 	        <div class="card-content">
-	        	<span class = "card-title black-text" ng-bind = 'list.title'></span>
+	        	<span class = "card-title black-text" ng-bind = 'list.title'></span><a class="waves-effect waves-teal btn-flat right" ng-click = 'listsCtrl.removeList(list)'><i class="right large material-icons">delete</i></a>
 	          	<p>By: <span ng-bind = 'list.creator'></span></p>
 	          	<p>Tags: <span ng-bind = "list.tags.join(', ')"></span></p>
-	          		<a href="#">More Info...</a>
 	        </div>
 	        <div class="card-action">
 	          	<a href = '#/flash/{{list._id}}' class = 'btn waves-light waves-effect col btn-small white-text'>Flashcards</a>

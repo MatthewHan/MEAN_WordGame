@@ -158,6 +158,12 @@ app.controller('ListsController', [ 'ListsFactory','$rootScope', function (Lists
 			}
 		}
 	}
+	this.removeList = function(list){
+		console.log('potato');
+		ListsFactory.removeList(list, function(){
+			getLists();
+		})
+	}
 	var getLists = function(){
 		ListsFactory.getLists(function(lists){
 			that.lists = lists;

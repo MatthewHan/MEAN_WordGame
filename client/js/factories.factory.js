@@ -20,6 +20,11 @@ app.factory('ListsFactory', function($http){
 			$http.get('/lists').success(function(res){
 				callback(res);
 			})
+		},
+		removeList: function(list, callback){
+			$http.delete('/lists/'+list._id).success(function(res){
+				callback(res);
+			})
 		}
 	}
 });

@@ -42,15 +42,6 @@ module.exports = (function(){
 					res.json({status: true});
 				}
 			})
-			// customer.name = req.body.name;
-			// customer.save(function(err){
-			// 	if(err){
-			// 		//console.log(err);
-			// 		res.json({status:false, error:'Name is Required & must be Unique'});
-			// 	} else {
-			// 		res.json({status:true});
-			// 	}
-			// })
 		},
 		destroy: function(req, res){
 			List.remove({_id:req.params.id}, function(err){
